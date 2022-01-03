@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="options.css">
+  </head>
+
+  <body id="main_body">
+    <h2>Popup Tooltip Settings</h2>
+    <p>Use this to add tooltips to the popup. Use <strong>%s</strong> in the URL to denote
+    the query field. <strong>Note:</strong> Delete the label or the URL field to delete that entry.</p>
+
+    <div id="data_section" class="data_section">
+    </div>
+    <br><br>
+      <label for="excluded_domains" class="label_textarea">Excluded Domains (one per line)</label>
+      <textarea id="excluded_domains" name="excluded_domains" rows="5" cols="35"></textarea>
+    <br><br>
+    <div id="main_buttons" class="main_buttons">
+      <button type="button" id="reset_data" class="btn2" name="reset_data">Reset</button>
+      <button type="button" id="save_all" class="btn1" name="save_data">Save</button>
+      <span id="msg" class="msg"></span>
+
+    </div>
+    <br>
+
+    <script src="options.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,42 @@
+{
+
+  "manifest_version": 2,
+  "name": "Popup Tooltip",
+  "version": "1.2",
+
+  "description": "Popup tooltip when highlighting text on a page for search, maps etc..",
+
+  "icons": {
+    "48": "icons/fried_egg.svg"
+  },
+
+  "permissions": [
+    "clipboardWrite",
+    "storage"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["popup.css"],
+      "js": ["popup.js"]
+    }
+  ],
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "browser_specific_settings": {
+   "gecko": {
+     "id": "popup_tooltip_2@example.com"
+   }
+ },
+
+ "browser_action": {
+    "default_icon": "icons/fried_egg.svg",
+    "default_title": "Popup Tooltip",
+    "default_popup": "options.html"
+  }
+
+}

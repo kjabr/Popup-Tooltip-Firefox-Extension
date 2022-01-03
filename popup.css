@@ -1,0 +1,32 @@
+.popupZZ {
+  position: fixed;
+  display: none;
+  top: 10px;
+  left: 10px;
+  border-radius: 5px;
+  max-width: auto;
+  max-height: auto;
+  z-index: 1000000209;
+  background-color: #414a4c !important;
+  color: white;
+  padding: 5px 10px;
+  font-size: 1rem;
+  line-height: 1;
+
+
+}
+
+.popupZZ a {
+  color: white !important;
+  cursor: pointer;
+}
+
+.popupZZ a:hover {
+  color: orange !important;
+  text-decoration: none;
+}
+
+.popupZZ a:visited {
+  text-decoration: none;
+  color: white;
+}
