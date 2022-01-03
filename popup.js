@@ -4,6 +4,7 @@ var popup_element_content = `
     </div>
 `;
 //var rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+//test
 var selected_text = "";
 var mytimer;
 var popup_options;
