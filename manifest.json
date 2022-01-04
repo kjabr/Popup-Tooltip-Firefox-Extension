@@ -7,7 +7,7 @@
   "description": "Popup tooltip when highlighting text on a page for search, maps etc..",
 
   "icons": {
-    "48": "icons/fried_egg.svg"
+    "48": "icons/egg2.png"
   },
 
   "permissions": [
@@ -27,14 +27,14 @@
     "page": "options.html"
   },
 
-  "browser_specific_settings": {
-   "gecko": {
-     "id": "popup_tooltip_2@example.com"
-   }
- },
+//  "browser_specific_settings": {
+//   "gecko": {
+//     "id": "popup_tooltip_2@example.com"
+//   }
+// },
 
  "browser_action": {
-    "default_icon": "icons/fried_egg.svg",
+    "default_icon": "icons/egg2.png",
     "default_title": "Popup Tooltip",
     "default_popup": "options.html"
   }

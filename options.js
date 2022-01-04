@@ -29,9 +29,11 @@ var default_popup_options = {
 };
 
 var default_excl_domains = ["https://docs.google.com"];
+var popup_order = ["Copy", "Search", "Maps"];
 
 var stored_options = {};
 var excl_domains = [];
+var ordered_list = [];
 
 document.addEventListener("DOMContentLoaded", function(){
   //document.getElementById("data_section").insertAdjacentHTML('beforeend', add_section.replace(/MMM/g, "1"));
@@ -61,14 +63,25 @@ function add_item(elem){
 function populate_data(){
   entry_counter = 0;
   var data_length = Object.keys(stored_options).length;
-  for (const [key, value] of Object.entries(stored_options)) {
+
+  ordered_list.forEach((item, i) => {
+    entry_counter++;
+    document.getElementById("data_section").insertAdjacentHTML('beforeend',
+      add_section.replace(/MMM/g, entry_counter.toString()));
+    document.getElementById("label_" + entry_counter.toString()).value = item;
+    document.getElementById("url_" + entry_counter.toString()).value = stored_options[item];
+    entry_counter < data_length ? document.getElementById("add_item_MMM".replace(/MMM/g, entry_counter.toString())).style.visibility = "hidden" : null;
+  });
+
+
+  /*for (const [key, value] of Object.entries(stored_options)) {
     entry_counter++;
     document.getElementById("data_section").insertAdjacentHTML('beforeend',
       add_section.replace(/MMM/g, entry_counter.toString()));
     document.getElementById("label_" + entry_counter.toString()).value = key;
     document.getElementById("url_" + entry_counter.toString()).value = value;
     entry_counter < data_length ? document.getElementById("add_item_MMM".replace(/MMM/g, entry_counter.toString())).style.visibility = "hidden" : null;
-  }
+  }*/
 
   document.getElementById("excluded_domains").value = "";
   excl_domains.forEach((item, i) => {
@@ -77,17 +90,26 @@ function populate_data(){
 }
 
 function restoreOptions(){
-  let get_data = browser.storage.sync.get("data");
-  get_data.then(setCurrentChoice, onError);
+
+  if (navigator.userAgent.indexOf("Chrome") != -1) {
+    chrome.storage.sync.get("data", setCurrentChoice);
+    }
+  else
+    {
+    let get_data = browser.storage.sync.get("data");
+    get_data.then(setCurrentChoice, onError);
+    }
 
   function setCurrentChoice(result) {
     if (result.data === undefined) {
       stored_options = default_popup_options;
       excl_domains = default_excl_domains;
+      ordered_list = popup_order;
     }
     else {
       stored_options = result.data.data;
       excl_domains = result.data.excl_domains;
+      ordered_list = result.data.ordered_keys ?? popup_order;
     }
     //stored_options = result.data.data || default_popup_options;
     //excl_domains = result.data.excl_domains || default_excl_domains;
@@ -103,6 +125,7 @@ function restoreOptions(){
 
 function save_data(){
   var save_object = {};
+  var ordered_keys = [];
   save_object.data = {};
   save_object.excl_domains = [];
   for (i=1; i<=entry_counter; i++) {
@@ -110,8 +133,11 @@ function save_data(){
       document.getElementById("label_"+i.toString()).value != "") {
         save_object.data[document.getElementById("label_"+i.toString()).value] =
           document.getElementById("url_"+i.toString()).value;
+        ordered_keys.push(document.getElementById("label_"+i.toString()).value);
       }
   }
+
+  save_object["ordered_keys"] = ordered_keys;
 
   document.getElementById("excluded_domains").value.split("\n").forEach((item, i) => {
     if (item != "") {
@@ -124,14 +150,27 @@ function save_data(){
     }
   });
 
-  browser.storage.sync.set({
-    data: save_object
-  }).then(function(){
-    document.getElementById("msg").innerHTML = "saved!";
-    const mytimer2 = setTimeout((function(){
-      document.getElementById("msg").innerHTML = "";
-    }), 2000);
-  });
+  if (navigator.userAgent.indexOf("Chrome") != -1) {
+    chrome.storage.sync.set({
+      "data": save_object
+    }, function(){
+      document.getElementById("msg").innerHTML = "saved!";
+      const mytimer2 = setTimeout((function(){
+        document.getElementById("msg").innerHTML = "";
+      }), 2000);
+    });
+  }
+  else {
+    browser.storage.sync.set({
+      data: save_object
+    }).then(function(){
+      document.getElementById("msg").innerHTML = "saved!";
+      const mytimer2 = setTimeout((function(){
+        document.getElementById("msg").innerHTML = "";
+      }), 2000);
+    });
+  }
+
 
 }
 
