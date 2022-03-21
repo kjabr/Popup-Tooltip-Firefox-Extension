@@ -8,4 +8,8 @@ Example:
 
 <img width="204" alt="image" src="https://user-images.githubusercontent.com/13355897/147902456-3b3de21c-692b-4171-bf29-04540b7d251c.png">
 
-This extension is now published here: https://addons.mozilla.org/firefox/addon/popup-tooltip/
+This extension is now published here (for Firefox): https://addons.mozilla.org/firefox/addon/popup-tooltip/
+and here (for Chrome): https://chrome.google.com/webstore/detail/popup-tooltip/opbiebgbaablkfhomifdkhjdbilobbdg
+
+Privacy Policy:
+https://github.com/kjabr/Popup-Tooltip-Firefox-Extension/wiki/Privacy-Policy
